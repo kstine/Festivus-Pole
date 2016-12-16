@@ -1,0 +1,15 @@
+h1 {
+	font-size: xx-large;
+	text-align: center;
+}
+
+h2 {
+	font-size: x-large;
+	text-align: center;
+}
+
+img.mainimg {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
