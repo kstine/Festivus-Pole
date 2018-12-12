@@ -1,4 +1,5 @@
-import serial, time
+import serial
+import time
 
 # PIRSensor class
 # This is a crude way of detecting if a Zilog PIR sensor is triggered on the Raspberry Pi
@@ -26,7 +27,7 @@ class PIRSensor:
 		# Note no checking to see if this has worked (would be a good idea for future)
 		# set internal status to connected
 		self.connect_status = 1
-		print "Connected"
+		print("Connected")
 		
 		
 	def disconnect(self):
