@@ -4,30 +4,44 @@ import random
 import os
 
 
-# List all of the audio files 
-# These can be talking, song clips or music
-audiofiles = ['./Festivus/Feats/ogg_files/airgrieve.ogg',
-              './Festivus/Feats/ogg_files/featsostr.ogg',
-              './Festivus/Feats/ogg_files/festmiracl.ogg',
-              './Festivus/Feats/ogg_files/festrestus.ogg']
+base_path = './Festivus/Feats/ogg_files/'
+audiofiles = ['airgrieve.ogg',
+              'featsostr.ogg',
+              'festmiracl.ogg',
+              'festrestus.ogg']
+
 
 def main():
-        # setup music player
-        pygame.mixer.pre_init(44100, -16, 2, 2048)
-        pygame.init()
-        pygame.mixer.music.set_volume(1)
+        def setup_pygame():
+                pygame.mixer.pre_init(44100, -16, 2, 2048)
+                pygame.init()
+                pygame.mixer.music.set_volume(1)
 
+        def load_audiofiles():
+                for audiofile in audiofiles:
+                        clips.append(pygame.mixer.Sound(base_path + audiofile))
+
+        def quit_pygame():
+                print('\nClosing app.')
+                pygame.quit()
+
+        def generate_random_clip(clip_list, last_clip_list):
+                current_clip = random.randint(0, len(clip_list)-1)
+                while current_clip in last_clip_list:
+                                current_clip += 1
+                                if (current_clip > len(clip_list)-1):
+                                        current_clip = 0
+                return current_clip
+
+        def update_last_clip_list(last_clip_list):
+                if (len(last_clip_list) > 2):
+                        del last_clip_list[0]
+
+        # Execution steps
         clips = []
         last_clips = []
-
-        # load audio files
-        for audiofile in audiofiles:
-                clips.append(pygame.mixer.Sound(audiofile))
-
-        number_of_clips = len(clips)-1
-
-        def generate_random_clip():
-                return random.randint(0, number_of_clips)
+        setup_pygame()
+        load_audiofiles()
 
         while True:
                 key_stroke = input(
@@ -36,26 +50,15 @@ def main():
                 if (key_stroke == 'e'):
                         break
                 else:
-                        chosen_clip = generate_random_clip()
-                        while chosen_clip in last_clips:
-                                print(chosen_clip)
-                                chosen_clip += 1
-                                if (chosen_clip > number_of_clips):
-                                        print(chosen_clip)
-                                        chosen_clip = 0
-
-                        print(chosen_clip)
+                        if (pygame.mixer.get_busy()):
+                                pygame.mixer.stop()
+                        chosen_clip = generate_random_clip(clips, last_clips)
                         clips[chosen_clip]. play()
-                        last_clips.append(chosen_clip)
-                        print(last_clips)
-                if (len(last_clips)>2):
-                        del last_clips[0]
-                        print(last_clips)
+                        last_clips.append(chosen_clip)  
+                update_last_clip_list(last_clips)
 
+        quit_pygame()
 
-        pygame.quit()
-
-        input('\nClosing app.\n')         
 
 if __name__ == "__main__":
         main()
