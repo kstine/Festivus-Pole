@@ -17,9 +17,10 @@ def setup_pygame():
 
 
 def load_audiofiles():
-        clip_list = []
-        for audiofile in audiofiles:
-                clip_list.append(pygame.mixer.Sound(base_path + audiofile))
+        # clip_list = []
+        # for audiofile in audiofiles:
+        #         clip_list.append(pygame.mixer.Sound(base_path + audiofile))
+        clip_list = [pygame.mixer.Sound(base_path + audiofile) for audiofile in audiofiles]
         return clip_list
 
 
