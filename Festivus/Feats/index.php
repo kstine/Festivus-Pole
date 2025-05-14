@@ -118,7 +118,7 @@ print <<<EOT
 <meta charset="UTF-8">
 <title>Raspberry Pi - Reindeer</title>
 
-<script src="jquery-2.0.3.min.js"></script>
+<script src=""></script>
 
 
 <link href="reindeer.css" rel="stylesheet" type="text/css">
